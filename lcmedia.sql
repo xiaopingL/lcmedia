@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-01-05 03:15:33
+-- Generation Time: 2016-01-28 04:10:35
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -19,6 +19,156 @@ SET time_zone = "+00:00";
 --
 -- Database: `lcmedia`
 --
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `crm_ad_book`
+--
+
+CREATE TABLE IF NOT EXISTS `crm_ad_book` (
+  `sId` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `cId` int(10) NOT NULL COMMENT '客户ID',
+  `contractId` int(10) DEFAULT NULL COMMENT '合同ID',
+  `nature` tinyint(1) NOT NULL COMMENT '活动性质',
+  `studioId` int(10) NOT NULL COMMENT '影院ID',
+  `hallNumber` varchar(20) NOT NULL COMMENT '厅号',
+  `person_num` int(10) NOT NULL COMMENT '人数',
+  `follow_date` int(10) NOT NULL COMMENT '执行时间',
+  `film_name` varchar(60) NOT NULL COMMENT '片名',
+  `film_type` tinyint(1) NOT NULL COMMENT '影片类型',
+  `film_price` varchar(40) NOT NULL COMMENT '执行票价',
+  `demand_price` varchar(40) NOT NULL COMMENT '卖品需求',
+  `demand_num` smallint(4) NOT NULL COMMENT '卖品份数',
+  `content` varchar(400) DEFAULT NULL COMMENT '客户报价情况',
+  `remark` varchar(255) DEFAULT NULL COMMENT '合同赠送（包场）情况说明',
+  `operator` smallint(4) NOT NULL COMMENT '创建人',
+  `createTime` int(10) NOT NULL COMMENT '创建时间',
+  `state` tinyint(1) NOT NULL DEFAULT '0' COMMENT '审批状态',
+  `isDel` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
+  PRIMARY KEY (`sId`),
+  KEY `cId` (`cId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='包场活动执行单' AUTO_INCREMENT=3 ;
+
+--
+-- 转存表中的数据 `crm_ad_book`
+--
+
+INSERT INTO `crm_ad_book` (`sId`, `cId`, `contractId`, `nature`, `studioId`, `hallNumber`, `person_num`, `follow_date`, `film_name`, `film_type`, `film_price`, `demand_price`, `demand_num`, `content`, `remark`, `operator`, `createTime`, `state`, `isDel`) VALUES
+(2, 3, 1, 2, 2, '12', 200, 1453824000, '世纪大战', 2, '25', '16', 250, '23##21##2##4##290##0', '111111111', 2, 1452231908, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `crm_ad_count`
+--
+
+CREATE TABLE IF NOT EXISTS `crm_ad_count` (
+  `sId` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `studioId` int(10) NOT NULL COMMENT '影城ID',
+  `countDate` int(10) NOT NULL COMMENT '统计月份',
+  `box_num` int(10) NOT NULL COMMENT '票房',
+  `person_num` int(10) NOT NULL COMMENT '人次',
+  `advert_num` int(10) NOT NULL COMMENT '广告可覆盖人次',
+  `film_num` int(10) NOT NULL COMMENT '场次',
+  `operator` smallint(4) NOT NULL COMMENT '创建人',
+  `createTime` int(10) NOT NULL COMMENT '创建时间',
+  `isDel` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
+  PRIMARY KEY (`sId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='影城数据统计表' AUTO_INCREMENT=3 ;
+
+--
+-- 转存表中的数据 `crm_ad_count`
+--
+
+INSERT INTO `crm_ad_count` (`sId`, `studioId`, `countDate`, `box_num`, `person_num`, `advert_num`, `film_num`, `operator`, `createTime`, `isDel`) VALUES
+(1, 2, 1448899200, 230, 345, 12, 24, 2, 1453882657, 0),
+(2, 1, 1451577600, 260, 211, 214, 45, 2, 1453882876, 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `crm_ad_film`
+--
+
+CREATE TABLE IF NOT EXISTS `crm_ad_film` (
+  `sId` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `cId` int(10) NOT NULL COMMENT '客户ID',
+  `position` tinyint(1) NOT NULL COMMENT '位置要求',
+  `issue` varchar(30) NOT NULL COMMENT '影讯期号',
+  `pay_type` tinyint(1) NOT NULL COMMENT '支付形式',
+  `contractNumber` varchar(30) NOT NULL COMMENT '合同编号',
+  `remark` varchar(200) NOT NULL COMMENT '备注',
+  `operator` smallint(4) NOT NULL COMMENT '创建人',
+  `createTime` int(10) NOT NULL COMMENT '创建时间',
+  `state` tinyint(1) NOT NULL DEFAULT '0' COMMENT '审批状态',
+  `isDel` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
+  PRIMARY KEY (`sId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='影讯广告执行单' AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `crm_ad_film`
+--
+
+INSERT INTO `crm_ad_film` (`sId`, `cId`, `position`, `issue`, `pay_type`, `contractNumber`, `remark`, `operator`, `createTime`, `state`, `isDel`) VALUES
+(1, 4, 2, '2015 12', 1, 'HF2015-001', '备注说明1111111111111', 2, 1452834835, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `crm_ad_lined`
+--
+
+CREATE TABLE IF NOT EXISTS `crm_ad_lined` (
+  `sId` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `startDate` int(10) NOT NULL COMMENT '排期开始时间',
+  `endDate` int(10) NOT NULL COMMENT '排期结束时间',
+  `title` varchar(60) NOT NULL COMMENT '标题',
+  `month` varchar(20) DEFAULT NULL COMMENT '月',
+  `days` varchar(20) DEFAULT NULL COMMENT '日',
+  `studioId` int(10) NOT NULL COMMENT '影院ID',
+  `content` text NOT NULL COMMENT '排期内容',
+  `overplus_min` int(10) NOT NULL COMMENT '剩余广告时长（分钟）',
+  `overplus_sec` int(10) NOT NULL COMMENT '剩余广告时长（秒）',
+  `operator` smallint(4) NOT NULL COMMENT '创建人',
+  `createTime` int(10) NOT NULL COMMENT '创建时间',
+  `isDel` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
+  PRIMARY KEY (`sId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='广告排期表' AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `crm_ad_lined`
+--
+
+INSERT INTO `crm_ad_lined` (`sId`, `startDate`, `endDate`, `title`, `month`, `days`, `studioId`, `content`, `overplus_min`, `overplus_sec`, `operator`, `createTime`, `isDel`) VALUES
+(1, 1453651200, 1453996800, '领程传媒1月24日广告排期表', '1', '24', 1, '1、xxxxxxxxx\r\n2、aaaaaaaa', 10, 48, 2, 1453095530, 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `crm_ad_monitor`
+--
+
+CREATE TABLE IF NOT EXISTS `crm_ad_monitor` (
+  `rId` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `title` varchar(50) NOT NULL COMMENT '标题',
+  `type` enum('day','week') NOT NULL COMMENT '报表类型',
+  `createTime` int(10) NOT NULL COMMENT '创建时间',
+  `fId` int(11) DEFAULT '0' COMMENT '附件ID',
+  `remark` varchar(400) DEFAULT NULL COMMENT '备注',
+  `operator` smallint(4) NOT NULL COMMENT '创建人',
+  `isDel` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
+  PRIMARY KEY (`rId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='广告监测表' AUTO_INCREMENT=4 ;
+
+--
+-- 转存表中的数据 `crm_ad_monitor`
+--
+
+INSERT INTO `crm_ad_monitor` (`rId`, `title`, `type`, `createTime`, `fId`, `remark`, `operator`, `isDel`) VALUES
+(1, '媒体广告监测 2016-01-27', 'day', 1453875424, 10, '1111111', 2, 0),
+(2, '全国广告监测 2016-01-27', 'week', 1453875433, 11, '', 2, 1),
+(3, '媒体广告监测 2016-01-28', 'day', 1453875572, 12, '22222222222222222', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -89,6 +239,7 @@ CREATE TABLE IF NOT EXISTS `crm_billing` (
   `type` tinyint(1) NOT NULL COMMENT '发票性质',
   `ourCompany` tinyint(1) NOT NULL COMMENT '我方开票公司',
   `cate` tinyint(1) NOT NULL COMMENT '发票类型',
+  `cate_other` varchar(100) DEFAULT NULL COMMENT '其他',
   `company` varchar(100) NOT NULL COMMENT '客户开票名称',
   `money` varchar(100) NOT NULL COMMENT '开票金额',
   `remark` varchar(255) NOT NULL COMMENT '备注',
@@ -105,11 +256,11 @@ CREATE TABLE IF NOT EXISTS `crm_billing` (
 -- 转存表中的数据 `crm_billing`
 --
 
-INSERT INTO `crm_billing` (`billingId`, `contractId`, `class`, `type`, `ourCompany`, `cate`, `company`, `money`, `remark`, `billingDate`, `number`, `operator`, `createTime`, `state`, `isDel`) VALUES
-(1, 1, 1, 2, 0, 0, '合肥华润影城有限公司', '2500', '财务尽快', 1448553600, 'FP2015-001', 2, 1446279911, 1, 0),
-(2, 1, 1, 2, 0, 0, '合肥华润影城有限公司', '800', '无', 1450108800, '20168521', 2, 1450168859, 1, 0),
-(3, 1, 1, 1, 0, 0, '合肥华润影城有限公司', '1000', '无', 0, NULL, 2, 1450662327, 0, 1),
-(4, 1, 1, 3, 1, 2, '合肥华润影城有限公司', '1000', '无', 0, NULL, 2, 1450662494, 0, 0);
+INSERT INTO `crm_billing` (`billingId`, `contractId`, `class`, `type`, `ourCompany`, `cate`, `cate_other`, `company`, `money`, `remark`, `billingDate`, `number`, `operator`, `createTime`, `state`, `isDel`) VALUES
+(1, 1, 1, 2, 0, 0, NULL, '合肥华润影城有限公司', '2500', '财务尽快', 1448553600, 'FP2015-001', 2, 1446279911, 1, 0),
+(2, 1, 1, 2, 0, 0, NULL, '合肥华润影城有限公司', '800', '无', 1450108800, '20168521', 2, 1450168859, 1, 0),
+(3, 1, 1, 1, 0, 0, NULL, '合肥华润影城有限公司', '1000', '无', 0, NULL, 2, 1450662327, 0, 1),
+(4, 1, 1, 1, 1, 3, '1111', '合肥华润影城有限公司', '1000', '无', 0, NULL, 2, 1450662494, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -259,8 +410,13 @@ INSERT INTO `crm_competence` (`comCode`, `comeName`, `level`, `codeUrl`, `parent
 ('media', '媒介管理', 1, '#', '', '', 4, 0, 1451097736),
 ('studioList', '影城管理', 2, 'media/StudioController/studioList', 'media', '', 0, 0, 1451098064),
 ('studioContactList', '影城联系人', 2, 'media/StudioContactController/studioContactListView', 'media', '', 0, 0, 1451114070),
-('showList', '映前广告执行单', 2, 'media/ShowController/showList', 'media', '', 0, 0, 1451269928),
-('positionList', '阵地广告执行单', 2, 'media/PositionController/positionList', 'media', '', 0, 0, 1451366331);
+('showList', '映前广告执行', 2, 'media/ShowController/showList', 'media', '', 0, 0, 1451269928),
+('positionList', '阵地广告执行', 2, 'media/PositionController/positionList', 'media', '', 0, 0, 1451366331),
+('bookList', '包场活动执行', 2, 'media/BookController/bookList', 'media', '', 0, 0, 1452217588),
+('filmList', '影讯广告执行', 2, 'media/FilmController/filmList', 'media', '', 0, 0, 1452826389),
+('linedList', '领程广告排期', 2, 'media/LinedController/linedList', 'media', '', 3, 0, 1453084382),
+('monitorList', '媒体广告监测', 2, 'media/MonitorController/monitorListView/?type=day', 'media', '', 4, 0, 1453873203),
+('countList', '影城数据统计', 2, 'media/CountController/countList', 'media', '', 6, 0, 1453876188);
 
 -- --------------------------------------------------------
 
@@ -276,6 +432,9 @@ CREATE TABLE IF NOT EXISTS `crm_contract` (
   `discount` varchar(80) DEFAULT NULL COMMENT '折扣',
   `service` varchar(400) NOT NULL COMMENT '增值服务',
   `issueDate` int(10) DEFAULT NULL COMMENT '上刊时间',
+  `underDate` int(10) NOT NULL DEFAULT '0' COMMENT '下刊时间',
+  `market` varchar(40) NOT NULL COMMENT '营销费用',
+  `markeyNote` varchar(200) DEFAULT NULL COMMENT '营销费用备注',
   `content` text COMMENT '合同内容',
   `description` varchar(400) DEFAULT NULL COMMENT '备注',
   `contractNumber` varchar(60) DEFAULT NULL COMMENT '合同编号',
@@ -285,19 +444,20 @@ CREATE TABLE IF NOT EXISTS `crm_contract` (
   `isDel` tinyint(1) DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`contractId`),
   KEY `cId` (`cId`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='合同表' AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='合同表' AUTO_INCREMENT=8 ;
 
 --
 -- 转存表中的数据 `crm_contract`
 --
 
-INSERT INTO `crm_contract` (`contractId`, `cId`, `title`, `money`, `discount`, `service`, `issueDate`, `content`, `description`, `contractNumber`, `operator`, `createTime`, `state`, `isDel`) VALUES
-(1, 3, '华润影城广告服务', '5000', '400', '2##包场，有违约金||', 1445529600, '<p>\r\n	华润影城广告服务\r\n</p>\r\n<p>\r\n	华润影城广告服务\r\n</p>\r\n<p>\r\n	华润影城广告服务\r\n</p>\r\n<p>\r\n	华润影城广告服务\r\n</p>', NULL, 'LC2015-001', 2, 1445233241, 1, 0),
-(2, 1, '中环影城分销合同书', '4000', '100', '3##无||', 1446566400, '<p>\r\n	中环影城分销合同书\r\n</p>\r\n<p>\r\n	中环影城分销合同书\r\n</p>\r\n<p>\r\n	中环影城分销合同书\r\n</p>\r\n<p>\r\n	中环影城分销合同书\r\n</p>', NULL, 'LC2015-002', 1, 1445237016, 0, 1),
-(3, 1, '中环影城分销合同书', '4000', '100', '3##无||', 1446652800, '<p>\r\n	中环影城分销合同书\r\n</p>\r\n<p>\r\n	中环影城分销合同书\r\n</p>\r\n<p>\r\n	中环影城分销合同书\r\n</p>\r\n<p>\r\n	中环影城分销合同书\r\n</p>\r\n<p>\r\n	中环影城分销合同书\r\n</p>', NULL, 'LC2015-003', 2, 1445237084, 0, 0),
-(4, 4, '合肥华润地产分销合同书1', '8000', '11', '1##1111||3##2222||4##333||', 1450108800, '11', NULL, 'LC2015-004', 2, 1450166883, 0, 0),
-(5, 4, '合肥乐富强地产分销合同书', '120000', '无', '5##1||', 1451923200, '1212', '1、2323\r\n2、12221', 'LC2015-005', 1, 1451094470, 0, 1),
-(6, 4, '合肥乐富强地产分销合同书2', '120000', '无', '5##111||', 1452096000, '2232', '1、任务\r\n2、的说法是否', 'LC2015-005', 2, 1451094787, 0, 0);
+INSERT INTO `crm_contract` (`contractId`, `cId`, `title`, `money`, `discount`, `service`, `issueDate`, `underDate`, `market`, `markeyNote`, `content`, `description`, `contractNumber`, `operator`, `createTime`, `state`, `isDel`) VALUES
+(1, 3, '华润影城广告服务', '5000', '400', '2##包场，有违约金||', 1445529600, 0, '', NULL, '<p>\r\n	华润影城广告服务\r\n</p>\r\n<p>\r\n	华润影城广告服务\r\n</p>\r\n<p>\r\n	华润影城广告服务\r\n</p>\r\n<p>\r\n	华润影城广告服务\r\n</p>', NULL, 'LC2015-001', 2, 1445233241, 1, 0),
+(2, 1, '中环影城分销合同书', '4000', '100', '3##无||', 1446566400, 0, '', NULL, '<p>\r\n	中环影城分销合同书\r\n</p>\r\n<p>\r\n	中环影城分销合同书\r\n</p>\r\n<p>\r\n	中环影城分销合同书\r\n</p>\r\n<p>\r\n	中环影城分销合同书\r\n</p>', NULL, 'LC2015-002', 1, 1445237016, 0, 1),
+(3, 1, '中环影城分销合同书', '4000', '100', '3##无||', 1446652800, 0, '', NULL, '<p>\r\n	中环影城分销合同书\r\n</p>\r\n<p>\r\n	中环影城分销合同书\r\n</p>\r\n<p>\r\n	中环影城分销合同书\r\n</p>\r\n<p>\r\n	中环影城分销合同书\r\n</p>\r\n<p>\r\n	中环影城分销合同书\r\n</p>', NULL, 'LC2015-003', 2, 1445237084, 0, 0),
+(4, 4, '合肥华润地产分销合同书1', '8000', '11', '1##1111||3##2222||4##333||', 1450108800, 0, '', NULL, '11', NULL, 'LC2015-004', 2, 1450166883, 0, 0),
+(5, 4, '合肥乐富强地产分销合同书', '120000', '无', '5##1||', 1451923200, 0, '', NULL, '1212', '1、2323\r\n2、12221', 'LC2015-005', 1, 1451094470, 0, 1),
+(6, 4, '合肥乐富强地产分销合同书2', '120000', '无', '5##111||', 1452096000, 0, '', NULL, '2232', '1、任务\r\n2、的说法是否', 'LC2015-005', 2, 1451094787, 0, 0),
+(7, 4, '乐富强地产分销合同书3', '4500', '无', '2##22222||1##33333||', 1452614400, 1453996800, '700', '111222', '12121', '1212', 'LC2016-001', 2, 1452574825, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -437,7 +597,7 @@ CREATE TABLE IF NOT EXISTS `crm_file` (
   `fileExt` varchar(10) NOT NULL DEFAULT '',
   `fileSize` varchar(10) DEFAULT '0',
   PRIMARY KEY (`fid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- 转存表中的数据 `crm_file`
@@ -452,7 +612,10 @@ INSERT INTO `crm_file` (`fid`, `fileName`, `filePath`, `origName`, `fileExt`, `f
 (6, 'a7d7ab2a4447734ab636b56d77e22d07.png', './application/upload/201512/', 'cr_backend_mail_3.png', '.png', '55.38'),
 (7, '06ce1415ac650be3015d51f557f4e242.png', './application/upload/201512/', 'cr_backend_mail_1.png', '.png', '112.85'),
 (8, '1d39e399e093abdfd73f4346218396c5.png', './application/upload/201512/', 'cr_backend_mail.png', '.png', '102.11'),
-(9, 'ed0ee6b0da1af1e69f6380d9a7a7118d.png', 'E:/wamp/www/lcmedia/application/upload/201512/', 'nopic.png', '.png', '4.15');
+(9, 'ed0ee6b0da1af1e69f6380d9a7a7118d.png', 'E:/wamp/www/lcmedia/application/upload/201512/', 'nopic.png', '.png', '4.15'),
+(10, 'cfb1255660f3fd3e73fa93830331e149.jpg', './application/upload/201601/', '客户分配.jpg', '.jpg', '43.27'),
+(11, '95895d9816e2c183c1f4ab08715f0e3a.jpg', './application/upload/201601/', '合同管理.jpg', '.jpg', '48.25'),
+(12, '939ff6567575b6c43114f12cc47f6bad.jpg', './application/upload/201601/', '回款管理.jpg', '.jpg', '39.31');
 
 -- --------------------------------------------------------
 
@@ -729,7 +892,7 @@ CREATE TABLE IF NOT EXISTS `crm_pending` (
   KEY `fromUid` (`fromUid`),
   KEY `status` (`status`),
   KEY `isDel` (`isDel`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='流程审批提醒表' AUTO_INCREMENT=15 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='流程审批提醒表' AUTO_INCREMENT=23 ;
 
 --
 -- 转存表中的数据 `crm_pending`
@@ -749,7 +912,15 @@ INSERT INTO `crm_pending` (`pendId`, `tableId`, `proTable`, `fromUid`, `toUid`, 
 (11, 4, 'crm_billing', 2, 1, 1450662494, 0, 0),
 (12, 6, 'crm_contract', 2, 1, 1451094787, 0, 0),
 (13, 1, 'crm_ad_show', 2, 2, 1451292749, 0, 0),
-(14, 1, 'crm_ad_position', 2, 1, 1451372235, 0, 0);
+(14, 1, 'crm_ad_position', 2, 1, 1451372235, 0, 0),
+(15, 2, 'crm_ad_book', 2, 1, 1452231908, 0, 0),
+(16, 7, 'crm_contract', 2, 1, 1452574825, 0, 0),
+(17, 1, 'crm_ad_film', 2, 2, 1452834835, 0, 0),
+(18, 1, 'crm_personnel_leave', 2, 2, 1453080646, 0, 0),
+(19, 2, 'crm_personnel_leave', 2, 3, 1453080721, 0, 1),
+(20, 3, 'crm_personnel_leave', 2, 2, 1453081428, 0, 0),
+(21, 4, 'crm_personnel_leave', 2, 3, 1453082301, 0, 0),
+(22, 1, 'crm_personnel_overtime', 2, 1, 1453093818, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -767,7 +938,7 @@ CREATE TABLE IF NOT EXISTS `crm_pending_contact` (
   `isDel` tinyint(1) DEFAULT '0' COMMENT '是否删除 默认0不删，1删除',
   PRIMARY KEY (`pId`),
   KEY `proTable` (`proTable`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='流程处理事项表' AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='流程处理事项表' AUTO_INCREMENT=13 ;
 
 --
 -- 转存表中的数据 `crm_pending_contact`
@@ -783,7 +954,9 @@ INSERT INTO `crm_pending_contact` (`pId`, `proTable`, `pendingType`, `urlAdress`
 (7, 'crm_contract', '合同申请单', 'business/ContractController/contractDetail', '8', 1445233104, 0),
 (8, 'crm_billing', '开票申请单', 'business/BillingController/billingDetail', '9', 1446279827, 0),
 (9, 'crm_ad_show', '映前广告执行单', 'media/ShowController/showDetail', '10', 1451292610, 0),
-(10, 'crm_ad_position', '阵地广告执行单', 'media/PositionController/positionDetail', '11', 1451370818, 0);
+(10, 'crm_ad_position', '阵地广告执行单', 'media/PositionController/positionDetail', '11', 1451370818, 0),
+(11, 'crm_ad_book', '包场活动执行单', 'media/BookController/bookDetail', '12', 1452231590, 0),
+(12, 'crm_ad_film', '影讯广告执行单', 'media/FilmController/filmDetail', '13', 1452834730, 0);
 
 -- --------------------------------------------------------
 
@@ -902,7 +1075,17 @@ CREATE TABLE IF NOT EXISTS `crm_personnel_leave` (
   KEY `startDate` (`startDate`),
   KEY `endDate` (`endDate`),
   KEY `operator` (`operator`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='员工请假单' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='员工请假单' AUTO_INCREMENT=5 ;
+
+--
+-- 转存表中的数据 `crm_personnel_leave`
+--
+
+INSERT INTO `crm_personnel_leave` (`leaveId`, `type`, `pLeavetype`, `cause`, `startDate`, `endDate`, `allDay`, `annex`, `operator`, `createTime`, `state`, `isDel`) VALUES
+(1, 1, 0, '个人事情', 1453077000, 1453284000, '3', 0, 2, 1453080646, 1, 0),
+(2, 1, 0, '11111', 1453768200, 1453780800, '0.5', 0, 2, 1453080721, 0, 1),
+(3, 1, 0, '1111', 1453854600, 1453867200, '0.5', 0, 2, 1453081428, 1, 0),
+(4, 1, 0, '2222', 1454459400, 1454666400, '3', 0, 2, 1453082301, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -929,7 +1112,14 @@ CREATE TABLE IF NOT EXISTS `crm_personnel_overtime` (
   KEY `startDate` (`startDate`),
   KEY `endDate` (`endDate`),
   KEY `leaveId` (`leaveId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='员工加班单' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='员工加班单' AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `crm_personnel_overtime`
+--
+
+INSERT INTO `crm_personnel_overtime` (`oId`, `leaveId`, `operator`, `content`, `addr`, `startDate`, `endDate`, `allDay`, `allHour`, `overContent`, `createTime`, `state`, `isDel`) VALUES
+(1, 0, 2, '222', '11', 1452729600, 1452754800, '0', 7, '', 1453093818, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -975,7 +1165,7 @@ CREATE TABLE IF NOT EXISTS `crm_process` (
   `isDel` tinyint(1) DEFAULT '0' COMMENT '是否删除 默认0不删，1删除',
   `createTime` int(11) DEFAULT '0' COMMENT '添加时间',
   PRIMARY KEY (`pNumber`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='流程表' AUTO_INCREMENT=12 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='流程表' AUTO_INCREMENT=14 ;
 
 --
 -- 转存表中的数据 `crm_process`
@@ -984,7 +1174,7 @@ CREATE TABLE IF NOT EXISTS `crm_process` (
 INSERT INTO `crm_process` (`pNumber`, `processName`, `processStructrue`, `processExtension`, `isDel`, `createTime`) VALUES
 (1, '公告通知申请流程', '[{"level":0,"sid":0,"price":"","name":""},{"level":"5","sid":0,"price":"","name":""}]', '', 0, 1439774176),
 (2, '加班单申请流程', '[{"level":0,"sid":0,"price":"","name":""},{"level":"3","sid":0,"price":"","name":""}]', '', 0, 1439775426),
-(3, '请假单申请流程', '[{"level":0,"sid":0,"price":"","name":""},{"level":"3","sid":0,"price":"","name":""}]', '', 0, 1439775449),
+(3, '请假单申请流程', '[{"level":0,"sid":0,"price":"1","name":""},{"level":"3","sid":"8","price":"","name":""},{"level":"3","sid":0,"price":"","name":""}]', '', 0, 1453080624),
 (4, '误打卡申请流程', '[{"level":0,"sid":0,"price":"","name":""},{"level":"3","sid":0,"price":"","name":""}]', '', 0, 1439775467),
 (5, '领料申请流程', '[{"level":0,"sid":"3","price":"","name":""},{"level":"4","sid":0,"price":"","name":""}]', '{"numType":"2"}', 0, 1439968953),
 (6, '领料申请流程(合同赠票)', '[{"level":0,"sid":0,"price":"","name":""},{"level":"3","sid":0,"price":"","name":""},{"level":"1","sid":"3","price":"","name":""},{"level":"4","sid":0,"price":"","name":""}]', '{"numType":"1"}', 0, 1439969016),
@@ -992,7 +1182,9 @@ INSERT INTO `crm_process` (`pNumber`, `processName`, `processStructrue`, `proces
 (8, '合同申请流程', '[{"level":0,"sid":0,"price":"","name":""},{"level":"3","sid":0,"price":"","name":""}]', '', 0, 1445233052),
 (9, '开票申请流程', '[{"level":0,"sid":0,"price":"","name":""},{"level":"3","sid":"8","price":"","name":""},{"level":"3","sid":0,"price":"","name":""}]', '', 0, 1448514013),
 (10, '映前广告执行流程', '[{"level":0,"sid":0,"price":"","name":""},{"level":"3","sid":0,"price":"","name":""}]', '', 0, 1451292540),
-(11, '阵地广告执行流程', '[{"level":0,"sid":0,"price":"","name":""},{"level":"3","sid":0,"price":"","name":""}]', '', 0, 1451370715);
+(11, '阵地广告执行流程', '[{"level":0,"sid":0,"price":"","name":""},{"level":"3","sid":0,"price":"","name":""}]', '', 0, 1451370715),
+(12, '包场活动执行流程', '[{"level":0,"sid":0,"price":"","name":""},{"level":"3","sid":0,"price":"","name":""}]', '', 0, 1452231556),
+(13, '影讯广告执行流程', '[{"level":0,"sid":0,"price":"","name":""},{"level":"3","sid":0,"price":"","name":""}]', '', 0, 1452834693);
 
 -- --------------------------------------------------------
 
@@ -1039,7 +1231,7 @@ CREATE TABLE IF NOT EXISTS `crm_process_record` (
   KEY `fromUid` (`fromUid`),
   KEY `toUid` (`toUid`),
   KEY `proTable` (`proTable`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='流程审批详情记录表' AUTO_INCREMENT=24 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='流程审批详情记录表' AUTO_INCREMENT=38 ;
 
 --
 -- 转存表中的数据 `crm_process_record`
@@ -1068,7 +1260,20 @@ INSERT INTO `crm_process_record` (`rId`, `proTable`, `tableId`, `fromUid`, `toUi
 (20, 'crm_contract', 6, 2, 1, NULL, 0, 0, 0, 0, 1451094787, 0),
 (21, 'crm_ad_show', 1, 2, 1, '', 0, 0, 1, 0, 1451292749, 1451296292),
 (22, 'crm_ad_show', 1, 2, 2, NULL, 0, 0, 0, 0, 1451296292, 0),
-(23, 'crm_ad_position', 1, 2, 1, NULL, 0, 0, 0, 0, 1451372235, 0);
+(23, 'crm_ad_position', 1, 2, 1, NULL, 0, 0, 0, 0, 1451372235, 0),
+(24, 'crm_ad_book', 2, 2, 1, NULL, 0, 0, 0, 0, 1452231908, 0),
+(25, 'crm_contract', 7, 2, 1, NULL, 0, 0, 0, 0, 1452574825, 0),
+(26, 'crm_ad_film', 1, 2, 1, '', 0, 0, 1, 0, 1452834835, 1452836634),
+(27, 'crm_ad_film', 1, 2, 2, NULL, 0, 0, 0, 0, 1452836634, 0),
+(28, 'crm_personnel_leave', 1, 2, 1, '', 0, 0, 1, 0, 1453080646, 1453080666),
+(29, 'crm_personnel_leave', 1, 2, 3, '', 0, 0, 1, 0, 1453080666, 1453080682),
+(30, 'crm_personnel_leave', 1, 2, 2, NULL, 0, 0, 0, 0, 1453080682, 0),
+(31, 'crm_personnel_leave', 2, 2, 1, '', 0, 1, 1, 0, 1453080721, 1453080734),
+(33, 'crm_personnel_leave', 3, 2, 1, '', 0, 1, 1, 0, 1453081428, 1453082271),
+(34, 'crm_personnel_leave', 3, 2, 2, NULL, 0, 0, 0, 0, 1453082271, 0),
+(35, 'crm_personnel_leave', 4, 2, 1, '', 0, 0, 1, 0, 1453082301, 1453082313),
+(36, 'crm_personnel_leave', 4, 2, 3, NULL, 0, 0, 0, 0, 1453082313, 0),
+(37, 'crm_personnel_overtime', 1, 2, 1, NULL, 0, 0, 0, 0, 1453093818, 0);
 
 -- --------------------------------------------------------
 
@@ -1199,7 +1404,7 @@ CREATE TABLE IF NOT EXISTS `crm_report` (
   `title` varchar(50) NOT NULL COMMENT '标题',
   `type` enum('week','month') NOT NULL COMMENT '报表类型',
   `createTime` int(10) NOT NULL COMMENT '创建时间',
-  `fId` int(11) DEFAULT '0' COMMENT '创建时间',
+  `fId` int(11) DEFAULT '0' COMMENT '附件ID',
   `remark` varchar(400) DEFAULT NULL COMMENT '备注',
   `operator` smallint(4) NOT NULL COMMENT '创建人',
   `isDel` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
@@ -1392,9 +1597,9 @@ CREATE TABLE IF NOT EXISTS `crm_user` (
 --
 
 INSERT INTO `crm_user` (`uId`, `userName`, `password`, `status`, `roleId`, `jobId`, `isInherit`, `isDisabled`, `isDel`, `createTime`, `lastTime`, `lastIp`, `isPms`) VALUES
-(1, '朱长翠', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 1, 1, 0, 0, 1440726318, 1451897678, '::1', 0),
-(2, '李小平', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 4, 1, 0, 0, 1440727846, 1451364694, '::1', 0),
-(3, '财务经理', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 3, 0, 0, 0, 1448513904, 1450169702, '::1', 0);
+(1, '朱长翠', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 1, 1, 0, 0, 1440726318, 1453082309, '127.0.0.1', 0),
+(2, '李小平', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 4, 1, 0, 0, 1440727846, 1453871062, '127.0.0.1', 0),
+(3, '财务经理', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 3, 0, 0, 0, 1448513904, 1453080679, '127.0.0.1', 0);
 
 -- --------------------------------------------------------
 
@@ -1413,83 +1618,94 @@ CREATE TABLE IF NOT EXISTS `crm_user_contact` (
   KEY `uId` (`uId`),
   KEY `type` (`type`),
   KEY `comCode` (`comCode`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='权限代码' AUTO_INCREMENT=649 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='权限代码' AUTO_INCREMENT=852 ;
 
 --
 -- 转存表中的数据 `crm_user_contact`
 --
 
 INSERT INTO `crm_user_contact` (`id`, `comCode`, `uId`, `type`, `isDel`, `createTime`) VALUES
-(637, 'positionList', 1, 0, 0, 1451366338),
-(636, 'showList', 1, 0, 0, 1451366338),
-(635, 'studioContactList', 1, 0, 0, 1451366338),
-(634, 'studioList', 1, 0, 0, 1451366338),
-(633, 'media', 1, 0, 0, 1451366338),
-(632, 'billingList', 1, 0, 0, 1451366338),
-(630, 'customerList', 1, 0, 0, 1451366338),
-(631, 'contractList', 1, 0, 0, 1451366338),
-(629, 'customer', 1, 0, 0, 1451366338),
-(628, 'madeList', 1, 0, 0, 1451366338),
-(627, 'callbackList', 1, 0, 0, 1451366338),
-(648, 'retrieveAdd', 1, 0, 2, 1451366338),
-(647, 'allTools', 1, 0, 2, 1451366338),
-(646, 'allOverTime', 1, 0, 2, 1451366338),
-(626, 'goodsList', 1, 0, 0, 1451366338),
-(426, 'retrieveList', 2, 0, 0, 1450255422),
-(425, 'visitList', 2, 0, 0, 1450255422),
-(424, 'billingList', 2, 0, 0, 1450255422),
-(423, 'contractList', 2, 0, 0, 1450255422),
-(422, 'customerList', 2, 0, 0, 1450255422),
-(421, 'customer', 2, 0, 0, 1450255422),
-(420, 'goodsList', 2, 0, 0, 1450255422),
-(419, 'office', 2, 0, 0, 1450255422),
-(625, 'toolsList', 1, 0, 0, 1451366338),
-(624, 'office', 1, 0, 0, 1451366338),
-(645, 'allMade', 1, 0, 2, 1451366338),
-(644, 'allLeave', 1, 0, 2, 1451366338),
-(623, 'extensionList', 1, 0, 0, 1451366338),
-(622, 'pendList', 1, 0, 0, 1451366338),
-(621, 'processList', 1, 0, 0, 1451366338),
-(643, 'allHoliday', 1, 0, 2, 1451366338),
-(642, 'allFalsesign', 1, 0, 2, 1451366338),
-(620, 'process', 1, 0, 0, 1451366338),
-(619, 'overworkList', 1, 0, 0, 1451366338),
-(641, 'allExpand', 1, 0, 2, 1451366338),
-(618, 'expandList', 1, 0, 0, 1451366338),
-(617, 'personnel', 1, 0, 0, 1451366338),
-(616, 'orgList', 1, 0, 0, 1451366338),
-(418, 'overworkList', 2, 0, 0, 1450255422),
-(417, 'expandList', 2, 0, 0, 1450255422),
-(416, 'personnel', 2, 0, 0, 1450255422),
-(415, 'journalList', 2, 0, 0, 1450255422),
-(414, 'panelList', 2, 0, 0, 1450255422),
-(413, 'forumList', 2, 0, 0, 1450255422),
-(412, 'contList', 2, 0, 0, 1450255422),
-(411, 'announceList', 2, 0, 0, 1450255422),
-(410, 'emailList', 2, 0, 0, 1450255422),
-(409, 'baseInfoEdit', 2, 0, 0, 1450255422),
-(615, 'siteList', 1, 0, 0, 1451366338),
-(614, 'roleList', 1, 0, 0, 1451366338),
-(613, 'menuList', 1, 0, 0, 1451366338),
-(640, 'allCustomer', 1, 0, 2, 1451366338),
-(639, 'allCallback', 1, 0, 2, 1451366338),
+(838, 'bookList', 1, 0, 0, 1453876195),
+(837, 'positionList', 1, 0, 0, 1453876195),
+(836, 'showList', 1, 0, 0, 1453876195),
+(835, 'studioContactList', 1, 0, 0, 1453876195),
+(834, 'studioList', 1, 0, 0, 1453876195),
+(833, 'media', 1, 0, 0, 1453876195),
+(832, 'billingList', 1, 0, 0, 1453876195),
+(831, 'contractList', 1, 0, 0, 1453876195),
+(830, 'customerList', 1, 0, 0, 1453876195),
+(829, 'customer', 1, 0, 0, 1453876195),
+(828, 'madeList', 1, 0, 0, 1453876195),
+(851, 'retrieveAdd', 1, 0, 2, 1453876195),
+(850, 'allTools', 1, 0, 2, 1453876195),
+(849, 'allOverTime', 1, 0, 2, 1453876195),
+(827, 'callbackList', 1, 0, 0, 1453876195),
+(752, 'bookList', 2, 0, 0, 1453084389),
+(751, 'positionList', 2, 0, 0, 1453084389),
+(750, 'showList', 2, 0, 0, 1453084389),
+(749, 'studioContactList', 2, 0, 0, 1453084389),
+(747, 'media', 2, 0, 0, 1453084389),
+(748, 'studioList', 2, 0, 0, 1453084389),
+(746, 'customerContactList', 2, 0, 0, 1453084389),
+(745, 'paymentList', 2, 0, 0, 1453084389),
+(744, 'retrieveList', 2, 0, 0, 1453084389),
+(826, 'goodsList', 1, 0, 0, 1453876195),
+(825, 'toolsList', 1, 0, 0, 1453876195),
+(848, 'allMade', 1, 0, 2, 1453876195),
+(847, 'allLeave', 1, 0, 2, 1453876195),
+(824, 'office', 1, 0, 0, 1453876195),
+(823, 'extensionList', 1, 0, 0, 1453876195),
+(822, 'pendList', 1, 0, 0, 1453876195),
+(846, 'allHoliday', 1, 0, 2, 1453876195),
+(845, 'allFalsesign', 1, 0, 2, 1453876195),
+(821, 'processList', 1, 0, 0, 1453876195),
+(820, 'process', 1, 0, 0, 1453876195),
+(844, 'allExpand', 1, 0, 2, 1453876195),
+(819, 'overworkList', 1, 0, 0, 1453876195),
+(818, 'expandList', 1, 0, 0, 1453876195),
+(817, 'personnel', 1, 0, 0, 1453876195),
+(843, 'allCustomer', 1, 0, 2, 1453876195),
+(743, 'visitList', 2, 0, 0, 1453084389),
+(742, 'billingList', 2, 0, 0, 1453084389),
+(741, 'contractList', 2, 0, 0, 1453084389),
+(740, 'customerList', 2, 0, 0, 1453084389),
+(739, 'customer', 2, 0, 0, 1453084389),
+(738, 'goodsList', 2, 0, 0, 1453084389),
+(737, 'office', 2, 0, 0, 1453084389),
+(736, 'overworkList', 2, 0, 0, 1453084389),
+(735, 'expandList', 2, 0, 0, 1453084389),
+(816, 'orgList', 1, 0, 0, 1453876195),
+(815, 'siteList', 1, 0, 0, 1453876195),
+(814, 'roleList', 1, 0, 0, 1453876195),
+(842, 'allCallback', 1, 0, 2, 1453876195),
 (384, 'allPayment', 3, 1, 2, 1448777381),
 (385, 'retrieveAdd', 3, 1, 2, 1448777381),
-(408, 'welcome', 2, 0, 0, 1450255422),
-(407, 'panel', 2, 0, 0, 1450255422),
-(427, 'paymentList', 2, 0, 0, 1450255422),
-(428, 'customerContactList', 2, 0, 0, 1450255422),
-(612, 'userList', 1, 0, 0, 1451366338),
-(611, 'system', 1, 0, 0, 1451366338),
-(610, 'panelList', 1, 0, 0, 1451366338),
-(638, 'addForum', 1, 0, 2, 1451366338),
-(609, 'forumList', 1, 0, 0, 1451366338),
-(607, 'announceList', 1, 0, 0, 1451366338),
-(608, 'contList', 1, 0, 0, 1451366338),
-(606, 'emailList', 1, 0, 0, 1451366338),
-(605, 'baseInfoEdit', 1, 0, 0, 1451366338),
-(604, 'welcome', 1, 0, 0, 1451366338),
-(603, 'panel', 1, 0, 0, 1451366338);
+(734, 'personnel', 2, 0, 0, 1453084389),
+(733, 'journalList', 2, 0, 0, 1453084389),
+(732, 'panelList', 2, 0, 0, 1453084389),
+(813, 'menuList', 1, 0, 0, 1453876195),
+(812, 'userList', 1, 0, 0, 1453876195),
+(811, 'system', 1, 0, 0, 1453876195),
+(841, 'addForum', 1, 0, 2, 1453876195),
+(810, 'panelList', 1, 0, 0, 1453876195),
+(809, 'forumList', 1, 0, 0, 1453876195),
+(808, 'contList', 1, 0, 0, 1453876195),
+(807, 'announceList', 1, 0, 0, 1453876195),
+(806, 'emailList', 1, 0, 0, 1453876195),
+(805, 'baseInfoEdit', 1, 0, 0, 1453876195),
+(731, 'forumList', 2, 0, 0, 1453084389),
+(730, 'contList', 2, 0, 0, 1453084389),
+(729, 'announceList', 2, 0, 0, 1453084389),
+(728, 'emailList', 2, 0, 0, 1453084389),
+(727, 'baseInfoEdit', 2, 0, 0, 1453084389),
+(726, 'welcome', 2, 0, 0, 1453084389),
+(725, 'panel', 2, 0, 0, 1453084389),
+(753, 'filmList', 2, 0, 0, 1453084389),
+(754, 'linedList', 2, 0, 0, 1453084389),
+(804, 'welcome', 1, 0, 0, 1453876195),
+(803, 'panel', 1, 0, 0, 1453876195),
+(839, 'monitorList', 1, 0, 0, 1453876195),
+(840, 'countList', 1, 0, 0, 1453876195);
 
 -- --------------------------------------------------------
 
