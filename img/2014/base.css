@@ -1,0 +1,82 @@
+﻿@charset "utf-8";
+/* -------------------------------------------------
+ * reset css
+ * -------------------------------------------------
+*/
+html {
+	color: #333;
+	background: #fff;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+body{
+	margin:0;
+	padding:0;
+	font:12px/1.5 "Microsoft Yahei",Arial, sans-serif,"\5b8b\4f53";
+	background-color:#fff;
+	color:#333;
+}
+body,div,p,table,td{word-wrap:break-word;word-break:normal;}
+/* 内外边距通常让各个浏览器样式的表现位置不同 */
+body, form, input, p, button{margin: 0;padding: 0;}
+
+
+/* 要注意表单元素并不继承父级 font 的问题 */
+button, input, select, textarea {font: 14px/1.5 'Arial', sans-serif;}
+
+input, select, textarea {vertical-align:middle;	color:#666;}
+button, input {*overflow: visible;line-height: normal;}
+button::-moz-focus-inner,input::-moz-focus-inner {padding:0;border:0;}
+
+
+
+input[type=submit],label,select,.pointer {cursor:pointer; }
+img{border: none;}
+
+a{text-decoration:none;color:#959595;}
+a:focus {outline: thin dotted;}
+a:hover{color:#1168d1;text-decoration:underline;}
+.clear{clear:both;font-size:0;line-height:normal;}
+/* clearfix */
+.clearfix:before, .clearfix:after {
+    content:"";
+    display:table;
+}
+.clearfix:after{
+	clear:both;
+	overflow:hidden;
+}
+.clearfix{
+    zoom:1;
+}
+.fl{float:left;}.fr{float:right;}.fblu{color:#1168d1;}
+.error{color:red;padding-top:5px;}
+
+.erp-wrap{width:900px;margin:0 auto;}
+.erp-top{background:url(logo.gif) no-repeat left bottom;margin:35px 0 15px;text-align:right;padding-top:15px;height:30px;}
+.erp-top a{padding:0 10px;}
+
+.erp-login{background-color:#32621a;position:relative;}
+.erp-login .erp-wrap{position:absolute;left:50%;margin-left:-450px;}
+.login-bg1,.login-bg2,.login-bg3,.login-bg4,.login-bg5,.login-bg6{background:url(lg_01.jpg) no-repeat center center;height:100px;}
+.login-bg2{background-image:url(lg_02.jpg);}
+.login-bg3{background-image:url(lg_03.jpg);}
+.login-bg4{background-image:url(lg_04.jpg);}
+.login-bg5{background-image:url(lg_05.jpg);}
+.login-bg6{background-image:url(lg_06.jpg);}
+
+
+.login-box{width:270px;background-color:#FFF;text-align:center;padding-bottom:25px;margin-top:90px;float:right;}
+.login-box label{ display:block; position: relative;}
+.login-box .inp_user,.login-box .inp_pws{padding-left:40px;height:50px;width:180px;margin:0 auto;}
+.login-box .inp_user input,.login-box .inp_pws input{width:170px;height:40px;line-height:40px;font-size:14px;border:none;background:#e9e9e9;color:#999;padding-left:10px;}
+.login-box input:focus {color:#333;}
+.login-box label>span {left:0;position: absolute;top:0;display:block;width:40px;height:40px;background:#e9e9e9 url(ico_user.gif) no-repeat left center;}
+.login-box .inp_pws>span{background:#e9e9e9 url(ico_pws.gif) no-repeat left center;}
+
+
+
+.login-box .inp_sub{width:220px;background:#02b4fe;border:none;height:40px;line-height:40px;color:#FFF;font-family:"Microsoft Yahei";text-align:center;margin-top:10px;}
+
+.copy{padding:20px 0 15px;text-align:center;}.copy a{padding:0 5px;}
+#ie6-warning{position:absolute;text-align:left;padding-bottom:2px;padding-left:23px;width:97%;padding-right:15px;background:url(http://static.ahhouse.com/admin/img/warning.gif) rgb(255,255,225) no-repeat 3px center;color:#333;font-size:12px;top:0px;padding-top:2px;left:0px;}

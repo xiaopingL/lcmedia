@@ -1,0 +1,11 @@
+body{font-family:"Microsoft Yahei";background: url(../img/bj.gif) top center repeat;}
+.top1{ width:731px; margin:0 auto; margin-top:20px;}
+.dx{ background:url(../img/dx.gif) top center no-repeat; height:360px; padding-top:60px;}
+.db{ background:url(../img/db.gif) top center no-repeat; height:29px;}
+.p1,.p3{ font-size:30px; color:#888; line-height:60px; text-align:center; }
+.p1 font{ color:#F00; margin:0 5px;}
+.p3{ font-size:36px; color:#777; font-weight: bold;}
+.p2{ text-align:center; margin-top:20px;}
+.p2 .dxfs{width:149px; height:44px; border:none; background:url(../img/dxfs.gif) top center no-repeat; cursor:pointer;display: block;margin: 0 auto;margin-top:20px;}
+.p2 .dxfs:hover{background:url(../img/dxfs1.gif) top center no-repeat;}
+
